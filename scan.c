@@ -8,16 +8,22 @@
 #include <string.h>
 #include <unistd.h>
 
-char const* const VERSIONSNR = "0.1.2";
+char const* const VERSIONSNR = "1.1.0";
 
 int const DB_SIZE = 20;
 
 struct person
 {
-    int  personalnummer;
-    char nachname[20];
-    char vorname[20];
-    int  geburtsjahr;
+    char name[20];
+    char geschlecht;
+    int  alter;
+    char partner[20];
+    char kind_1[20];
+    char kind_2[20];
+    char kind_3[20];
+    char kind_4[20];
+    char mutter[20];
+    char vater[20];
 };
 typedef struct person person_t;
 
@@ -34,18 +40,30 @@ void readcsv(char const* const datei)
     }
     person_t database[DB_SIZE];
     while(fscanf(filepointer,
-                 "%d,%[^,],%[^,],%d",
-                 &database[zaehler].personalnummer,
-                 database[zaehler].nachname,
-                 database[zaehler].vorname,
-                 &database[zaehler].geburtsjahr)
+                 "%[^,], %c, %d, %[^,], %[^,], %[^,], %[^,], %[^,], %[^,], %[^.]",
+                 database[zaehler].name,
+          	 &database[zaehler].geschlecht,
+                 &database[zaehler].alter,
+		 database[zaehler].partner,
+		 database[zaehler].kind_1,
+		 database[zaehler].kind_2,
+		 database[zaehler].kind_3,
+		 database[zaehler].kind_4,
+		 database[zaehler].mutter,
+		 database[zaehler].vater)
           != EOF)
     {
-        printf("%d, %s, %s, %d \n",
-               database[zaehler].personalnummer,
-               database[zaehler].nachname,
-               database[zaehler].vorname,
-               database[zaehler].geburtsjahr);
+        printf("%s, %c, %d, %s, %s, %s, %s, %s, %s, %s \n",
+                 database[zaehler].name,
+                 database[zaehler].geschlecht,
+                 database[zaehler].alter,
+                 database[zaehler].partner,
+                 database[zaehler].kind_1,
+                 database[zaehler].kind_2,
+                 database[zaehler].kind_3,
+                 database[zaehler].kind_4,
+                 database[zaehler].mutter,
+                 database[zaehler].vater);
         zaehler++;
         if(zaehler == DB_SIZE)
         {
